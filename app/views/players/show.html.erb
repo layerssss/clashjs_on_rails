@@ -2,6 +2,105 @@
 
 <%= render @player %>
 
+<div id="<%= dom_id @player %>">
+  <p>
+    <strong>Example (GET):</strong>
+  </p>
+  <pre>
+    <code>
+curl <%= player_url(@player, format: :json) %>
+
+{
+  "id": 1,
+  "state": {
+    "player": {
+      "name": "ueoa",
+      "id": "ADNVHNAJ",
+      "style": 4,
+      "position": [
+        6,
+        4
+      ],
+      "direction": "west",
+      "directionAngle": 3,
+      "ammo": 0,
+      "isAlive": true
+    },
+    "enemies": [
+      {
+        "name": "qqq",
+        "id": "C0NMLMH7",
+        "style": 2,
+        "position": [
+          4,
+          2
+        ],
+        "direction": "west",
+        "directionAngle": 3,
+        "ammo": 0,
+        "isAlive": true
+      },
+      {
+        "name": "jjkq;",
+        "id": "8U2MS9A7",
+        "style": 0,
+        "position": [
+          6,
+          6
+        ],
+        "direction": "south",
+        "directionAngle": 2,
+        "ammo": 0,
+        "isAlive": true
+      }
+    ],
+    "map": {
+      "gridSize": 11,
+      "ammoPosition": [
+        [
+          0,
+          0
+        ],
+        [
+          5,
+          0
+        ]
+      ]
+    }
+  },
+  "command": "west",
+  "waiting_for_command": false,
+  "style": 4,
+  "name": "ueoa",
+  "created_at": "2024-07-02T09:30:49.793Z",
+  "updated_at": "2024-07-02T22:55:20.173Z",
+  "url": "http://localhost:3000/players/1.json"
+}
+    </code>
+  </pre>
+
+  <p>
+    <strong>Example (PUT):</strong>
+  </p>
+  <pre>
+    <code>
+curl -X PUT <%= player_url(@player, format: :json) %> --header "Content-Type: application/json" -d '{"player":{"command":"west","waiting_for_command":false}}'
+    </code>
+  </pre>
+
+  <p>
+    <strong>Available Commands:</strong>
+  </p>
+  <ul>
+    <li>west</li>
+    <li>east</li>
+    <li>north</li>
+    <li>south</li>
+    <li>move</li>
+    <li>shoot</li>
+  </ul>
+</div>
+
 <div>
   <%= link_to "Edit this player", edit_player_path(@player) %> |
   <%= link_to "Back to players", players_path %>
