@@ -71,3 +71,5 @@ end
 gem 'dockerfile-rails', '>= 1.6', group: :development
 
 gem 'annotate', '~> 3.2'
+
+gem "httparty", "~> 0.22.0"

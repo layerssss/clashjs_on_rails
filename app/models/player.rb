@@ -16,9 +16,16 @@
 class Player < ApplicationRecord
   def state
     JSON.parse(state_json)
+  rescue JSON::ParserError => e
+    Rails.logger.error(e)
+    nil
   end
 
   def state=(value)
     self.state_json = value.to_json
+  end
+
+  before_save do
+    self.style ||= Random.rand(11)
   end
 end
