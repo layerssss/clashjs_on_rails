@@ -1,0 +1,3 @@
+[submodule "public/clashjs"]
+	path = public/clashjs
+	url = https://github.com/javierbyte/clashjs.git
