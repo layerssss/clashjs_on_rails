@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Created by Roberto Alvarez on 7/29/2015
 # Translated to Ruby with help of ChatGPT
 
@@ -19,9 +21,7 @@ def ai(player_state, enemies_states, game_environment)
   direction_to_target = nil
 
   # Hasta la vista baby !!!
-  if Utils.can_kill(player_state, enemies_states) && player_state[:ammo] > 0
-    return 'shoot'
-  end
+  return 'shoot' if Utils.can_kill(player_state, enemies_states) && (player_state[:ammo]).positive?
 
   if player_state[:ammo].zero? || turns_complete == 1
     to_position = get_best_ammo(player_state[:position], game_environment)
@@ -33,12 +33,9 @@ def ai(player_state, enemies_states, game_environment)
 
     direction_to_target = Utils.get_direction(player_state[:position], to_position)
 
-    if is_on_ammo(player_state[:position], old_best_ammo)
-      turns_complete = 0
-    end
+    0 if is_on_ammo(player_state[:position], old_best_ammo)
 
     # Save reference of the position I previously headed to
-    old_best_ammo = to_position
 
     # If it has already moved, change my direction
     return direction_to_target if direction_to_target != player_state[:direction]
@@ -49,7 +46,7 @@ def ai(player_state, enemies_states, game_environment)
     current_direction += 1
     if current_direction > 4
       current_direction = 1
-      turns_complete += 1
+      turns_complete + 1
     end
 
     return directions[current_direction]

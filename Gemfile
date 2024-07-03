@@ -60,6 +60,8 @@ group :development do
 
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
+
+  gem 'pry'
 end
 
 group :test do
@@ -72,4 +74,4 @@ gem 'dockerfile-rails', '>= 1.6', group: :development
 
 gem 'annotate', '~> 3.2'
 
-gem "httparty", "~> 0.22.0"
+gem 'httparty', '~> 0.22.0'
