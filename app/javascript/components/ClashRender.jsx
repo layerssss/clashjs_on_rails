@@ -11,10 +11,8 @@ import ClashJS from "../clashjs/ClashCore";
 
 const DEBUG = document.location.search.includes("debug");
 
-// const DEFAULT_SPEED = DEBUG ? 32 : 200;
-// const MAX_SPEED = DEBUG ? 32 : 100;
-const DEFAULT_SPEED = 4;
-const MAX_SPEED = 4;
+const DEFAULT_SPEED = DEBUG ? 32 : 200;
+const MAX_SPEED = DEBUG ? 32 : 100;
 
 const EXPIRE_NOTIF_TIME = 7 * 1000;
 
@@ -39,49 +37,49 @@ class Clash extends React.Component {
       require("../players/yuno"),
       require("../players/xmontoya"),
       require("../players/margeux"),
-      ...this.props.players.map(({ id, name, style }) => ({
-        info: {
-          name,
-          style,
-        },
-        ai: async (player, enemies, map) => {
-          const url = `/players/${id}.json`;
-          await fetch(url, {
-            method: "PUT",
-            headers: {
-              Accept: "application/json",
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              player: {
-                waiting_for_command: true,
-                state_json: JSON.stringify({
-                  player,
-                  enemies,
-                  map,
-                }),
-              },
-            }),
-          });
-          await new Promise((resolve) => {
-            setTimeout(resolve, 200);
-          });
-          const data = await fetch(url, {
-            method: "PUT",
-            headers: {
-              Accept: "application/json",
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              player: {
-                waiting_for_command: false,
-              },
-            }),
-          }).then((res) => res.json());
-          const command = data.command;
-          return command;
-        },
-      })),
+      // ...this.props.players.map(({ id, name, style }) => ({
+      //   info: {
+      //     name,
+      //     style,
+      //   },
+      //   ai: async (player, enemies, map) => {
+      //     const url = `/players/${id}.json`;
+      //     await fetch(url, {
+      //       method: "PUT",
+      //       headers: {
+      //         Accept: "application/json",
+      //         "Content-Type": "application/json",
+      //       },
+      //       body: JSON.stringify({
+      //         player: {
+      //           waiting_for_command: true,
+      //           state_json: JSON.stringify({
+      //             player,
+      //             enemies,
+      //             map,
+      //           }),
+      //         },
+      //       }),
+      //     });
+      //     await new Promise((resolve) => {
+      //       setTimeout(resolve, 200);
+      //     });
+      //     const data = await fetch(url, {
+      //       method: "PUT",
+      //       headers: {
+      //         Accept: "application/json",
+      //         "Content-Type": "application/json",
+      //       },
+      //       body: JSON.stringify({
+      //         player: {
+      //           waiting_for_command: false,
+      //         },
+      //       }),
+      //     }).then((res) => res.json());
+      //     const command = data.command;
+      //     return command;
+      //   },
+      // })),
     ]);
     this.ClashInstance = new ClashJS(playerDefinitionArray);
     this.ClashInstance.newGame();

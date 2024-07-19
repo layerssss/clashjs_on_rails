@@ -3,10 +3,10 @@ import _ from "lodash";
 
 function getSpaceArt(info) {
   if (_.isPlainObject(info)) {
-    return `url(static/rockets/${info.type})`;
+    return `url(/rockets/${info.type})`;
   }
 
-  return `url(static/rockets/rocket${info}.png)`;
+  return `url(/rockets/rocket${info}.png)`;
 }
 
 function PlayersRender(props) {
