@@ -1,3 +1,4 @@
+<div id="container">
 <p style="color: green"><%= notice %></p>
 
 <%= render @player %>
@@ -106,4 +107,5 @@ curl -X PUT <%= player_url(@player, format: :json) %> --header "Content-Type: ap
   <%= link_to "Back to players", players_path %>
 
   <%= button_to "Destroy this player", @player, method: :delete %>
+</div>
 </div>

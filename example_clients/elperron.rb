@@ -3,7 +3,7 @@
 # Created by Roberto Alvarez on 7/29/2015
 # Translated to Ruby with help of ChatGPT
 
-require_relative './utils'
+require_relative 'utils'
 
 API_URL = 'http://localhost:3000/players/2.json'
 
