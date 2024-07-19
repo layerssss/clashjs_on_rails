@@ -1,0 +1,28 @@
+{
+  "packageManager": "yarn@1.22.22",
+  "name": "app",
+  "private": true,
+  "version": "0.1.0",
+  "babel": {
+    "presets": [
+      "./node_modules/shakapacker/package/babel/preset.js"
+    ]
+  },
+  "browserslist": [
+    "defaults"
+  ],
+  "dependencies": {
+    "@hotwired/turbo-rails": "^8.0.4",
+    "compression-webpack-plugin": "^9.2.0",
+    "esbuild-loader": "^4.2.2",
+    "shakapacker": "8.0.0",
+    "terser-webpack-plugin": "^5.3.10",
+    "webpack": "^5.93.0",
+    "webpack-assets-manifest": "^5.2.1",
+    "webpack-cli": "^4.10.0",
+    "webpack-merge": "^5.10.0"
+  },
+  "devDependencies": {
+    "webpack-dev-server": "^4.15.2"
+  }
+}
