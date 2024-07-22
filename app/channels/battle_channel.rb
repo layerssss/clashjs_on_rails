@@ -2,13 +2,14 @@
 
 class BattleChannel < ApplicationCable::Channel
   def subscribed
-    if self.class.connected
+    if Battle.instance.connected
       transmit({ type: 'conflict' })
       return
     end
 
-    self.class.connected = true
+    Battle.instance.connected = true
     transmit({ type: 'connected', players: Player.all.as_json })
+    stream_from 'battle'
   end
 
   def receive(data) # rubocop:disable Metrics/MethodLength
@@ -36,10 +37,6 @@ class BattleChannel < ApplicationCable::Channel
   end
 
   def unsubscribed
-    self.class.connected = false
-  end
-
-  class << self
-    attr_accessor :connected
+    Battle.instance.connected = false
   end
 end

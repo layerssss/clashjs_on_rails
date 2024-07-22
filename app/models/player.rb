@@ -28,4 +28,12 @@ class Player < ApplicationRecord
   before_save do
     self.style ||= Random.rand(11)
   end
+
+  after_save do
+    ActionCable.server.broadcast('battle', { type: 'players_updated' }) if saved_change_to_attribute?(:name)
+  end
+
+  after_destroy do
+    ActionCable.server.broadcast('battle', { type: 'players_updated' })
+  end
 end

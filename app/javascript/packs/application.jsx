@@ -25,6 +25,9 @@ document.addEventListener("DOMContentLoaded", () => {
             </React.StrictMode>
           );
         }
+        if (type === 'players_updated'){
+          window.location.reload();
+        }
         if (type === "player_command") {
           const { command, player_id } = others;
           const player = players.find((p) => p.id === player_id);
