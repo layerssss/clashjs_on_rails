@@ -42,4 +42,4 @@ bin/shakapacker-dev-server
 
 Open http://localhost:3000/ to setup your players info and getting a URL to issue GET and PUT from the client.
 
-Open http://localhost:3000/players/battle/ in a browser tab to run the battle ground logic / Clash.js. Make sure you have one and only one open tab of this as the whole battle ground logic will run inside that browser tab.
+Open the "Battle" link in a browser tab to run the battle ground logic / Clash.js. Make sure you have one and only one open tab of this as the whole battle ground logic will run inside that browser tab.
