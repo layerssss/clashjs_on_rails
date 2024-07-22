@@ -8,6 +8,17 @@ import Shoots from "./Shoots";
 import Notifications from "./Notifications";
 
 import ClashJS from "../clashjs/ClashCore";
+import {
+  AUDIO_DOMINATING,
+  AUDIO_FIRST_BLOOD,
+  AUDIO_GOD_LIKE,
+  AUDIO_KILLING_SPREE,
+  AUDIO_OWNAGE,
+  audioExplosions,
+  audioLasers,
+  audioStreak,
+  audioStreakMore,
+} from "../lib/sound-effects";
 
 const DEBUG = document.location.search.includes("debug");
 const NOBOTS = document.location.search.includes("nobots");
@@ -82,6 +93,9 @@ class Clash extends React.Component {
   componentWillMount() {
     this.ClashInstance.addListener(({ name, payload }) => {
       if (name === "SHOOT") {
+        const audio =
+          audioLasers[Math.floor(Math.random() * audioLasers.length)];
+        audio.play();
         this.setState((state) => {
           return {
             shoots: [
@@ -185,6 +199,19 @@ class Clash extends React.Component {
         (player) => player.name
       ).join(",")}`,
     });
+
+    setTimeout(() => {
+      console.log("Killing streak", this.killingStreak);
+      let audio = null;
+      if (this.killingStreak <= 3) {
+        audio = audioStreak[this.killingStreak - 1];
+      } else {
+        audio = audioStreakMore[this.killingStreak % audioStreakMore.length];
+      }
+      audio.play();
+    }, 200);
+    this.killingStreak ||= 0;
+    this.killingStreak += 1;
   }
 
   endGame() {
