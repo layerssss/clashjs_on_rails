@@ -10,12 +10,10 @@ import Notifications from "./Notifications";
 import ClashJS from "../clashjs/ClashCore";
 
 const DEBUG = document.location.search.includes("debug");
+const NOBOTS = document.location.search.includes("nobots");
 
-// const DEFAULT_SPEED = DEBUG ? 32 : 200;
-// const MAX_SPEED = DEBUG ? 32 : 100;
-
-const DEFAULT_SPEED = 32;
-const MAX_SPEED = 32;
+const TIME_WAIT = 200;
+const DEFAULT_SPEED = 200;
 
 const EXPIRE_NOTIF_TIME = 7 * 1000;
 
@@ -27,13 +25,13 @@ class Clash extends React.Component {
     this.state = {
       clashState: null,
       shoots: [],
-      speed: DEFAULT_SPEED,
       notifications: [],
       finished: false,
+      speed: DEFAULT_SPEED,
     };
     const playerDefinitionArray = _.shuffle([
       // Merge built-in AI players with Rails suppiled players
-      ...(DEBUG
+      ...(NOBOTS
         ? []
         : [
             require("../players/manuelmhtr"),
@@ -46,12 +44,6 @@ class Clash extends React.Component {
             require("../players/margeux"),
           ].map((p) => ({
             ...p,
-            ai: async (...args) => {
-              await new Promise((resolve) => {
-                setTimeout(resolve, 100);
-              });
-              return p.ai(...args);
-            },
           }))),
       ...players.map((playerObject) => ({
         info: {
@@ -69,7 +61,7 @@ class Clash extends React.Component {
             },
           });
           await new Promise((resolve) => {
-            setTimeout(resolve, 200);
+            setTimeout(resolve, TIME_WAIT);
           });
           subscription.send({
             type: "player_wait_for_command_finish",
@@ -167,13 +159,12 @@ class Clash extends React.Component {
       return;
     }
 
+    const now = Date.now();
+    const newClashState = await this.ClashInstance.nextPly();
+    const timeSpent = Date.now() - now;
     this.setState(
       {
-        clashState: await this.ClashInstance.nextPly(),
-        speed:
-          this.state.speed > MAX_SPEED
-            ? parseInt(this.state.speed * 0.98, 10)
-            : MAX_SPEED,
+        clashState: newClashState,
       },
       () => {
         const alivePlayerCount = this.ClashInstance.getAlivePlayerCount();
@@ -181,7 +172,7 @@ class Clash extends React.Component {
         if (alivePlayerCount >= 2) {
           window.setTimeout(() => {
             this.nextTurn();
-          }, speed);
+          }, Math.max(speed - timeSpent, 1));
         }
       }
     );
