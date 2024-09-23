@@ -31,7 +31,9 @@ Clone the repo. It's a very simple Rails application, with sqlite as database. Y
 * nodejs
 
 ```
+npm install -g yarn # unless you already have yarn installed
 bundle install
+yarn install
 
 # run Rails server
 rails s
