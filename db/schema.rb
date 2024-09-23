@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -12,14 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 20_240_702_092_235) do
-  create_table 'players', force: :cascade do |t|
-    t.string 'name'
-    t.string 'command'
-    t.boolean 'waiting_for_command', default: false
-    t.datetime 'created_at', null: false
-    t.datetime 'updated_at', null: false
-    t.string 'state_json', default: 'null'
-    t.integer 'style'
+ActiveRecord::Schema[7.1].define(version: 2024_07_02_092235) do
+  create_table "players", force: :cascade do |t|
+    t.string "name"
+    t.string "command"
+    t.boolean "waiting_for_command", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "state_json", default: "null"
+    t.integer "style"
   end
+
 end

@@ -23,8 +23,8 @@ import {
 const DEBUG = document.location.search.includes("debug");
 const NOBOTS = document.location.search.includes("nobots");
 
-const TIME_WAIT = 200;
-const DEFAULT_SPEED = 200;
+const TIME_WAIT = 500;
+const DEFAULT_SPEED = 500;
 
 const EXPIRE_NOTIF_TIME = 7 * 1000;
 
